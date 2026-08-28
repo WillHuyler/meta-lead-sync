@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { supabase } from "../../lib/supabaseClient";
-import ScenarioModal from "../../components/ScenarioModal";
+import { supabase } from "@/lib/supabaseClient";
+import ScenarioModal from "@/components/ScenarioModal";
 
 interface Client {
   id: string;
@@ -47,7 +47,7 @@ export default function Home() {
     loadClients();
   }, []);
 
-  // Fetch client data dynamically on dropdown change
+  // Fetch performance metrics and keyword rankings on dropdown selection
   useEffect(() => {
     if (!selectedClientId) return;
 
@@ -99,7 +99,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#070a12] text-slate-100 p-6 md:p-10 font-sans">
-      {/* Navigation & Client Selector Header */}
       <header className="bg-white text-slate-900 rounded-2xl p-6 mb-8 shadow-2xl flex flex-col xl:flex-row items-center justify-between gap-6 border border-slate-100">
         <div className="flex items-center gap-6">
           <div className="flex flex-col items-center justify-center border-r border-slate-200 pr-6">
@@ -232,28 +231,6 @@ export default function Home() {
           </div>
           <div className="text-4xl font-black text-amber-500 mt-3">{loading ? "..." : metrics.clicks}</div>
           <span className="text-[10px] text-slate-500 mt-2 block">Vs MTD vs. Last MTD</span>
-        </div>
-      </section>
-
-      {/* Service Territory ZIP Map Pack Display */}
-      <section className="bg-[#0f1422] border border-slate-800 rounded-2xl p-6 mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-black text-slate-100">
-            GBP Profile Service Territory ZIPs — <span className="text-amber-400">{selectedClientName}</span>
-          </h3>
-          <span className="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold px-2.5 py-1 rounded-lg uppercase">
-            ACTIVE ZIP FILTER: ALL GBP ZIPS
-          </span>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-          {["ZIP 53202", "ZIP 53211", "ZIP 53217", "ZIP 53092", "ZIP 53097"].map((zip, idx) => (
-            <div key={idx} className="bg-[#070a12] border border-slate-800/80 p-3.5 rounded-xl text-center">
-              <span className="text-[10px] font-bold text-slate-400 block">{zip}</span>
-              <div className="text-2xl font-black text-emerald-400 my-1">#{idx % 2 === 0 ? 3 : 2}</div>
-              <span className="text-[9px] text-slate-500 uppercase font-mono">MAP PACK RANK</span>
-            </div>
-          ))}
         </div>
       </section>
 
