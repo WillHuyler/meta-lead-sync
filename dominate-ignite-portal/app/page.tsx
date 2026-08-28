@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import ClientSwitcher from "@/components/ClientSwitcher";
+import ScenarioModal from "@/components/ScenarioModal";
 
 export default function Home() {
   const [selectedClient, setSelectedClient] = useState("High Rise Chimney Sweep & Service");
@@ -131,6 +133,12 @@ export default function Home() {
           </div>
         </div>
       </header>
+
+      {/* Embedded Component Modules */}
+      <section className="mb-8 space-y-4">
+        <ScenarioModal />
+        <ClientSwitcher />
+      </section>
 
       {/* 2. Target Outcome Scenario Simulator */}
       <section className="bg-[#0f1422] border border-slate-800 rounded-2xl p-5 mb-8 shadow-xl">
