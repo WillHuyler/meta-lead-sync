@@ -20,7 +20,7 @@ export default function Home() {
   const [clients, setClients] = useState<Client[]>([]);
   const [selectedClientId, setSelectedClientId] = useState<string>("");
   const [selectedClientName, setSelectedClientName] = useState<string>("");
-  const [selectedPlatform, setSelectedPlatform] = useState("Google My Business (GMB)");
+  const [selectedPlatform, setSelectedPlatform] = useState<string>("Google My Business (GMB)");
   const [selectedGain, setSelectedGain] = useState<"5%" | "10%" | "15%" | "25%">("10%");
 
   const [metrics, setMetrics] = useState({
@@ -32,7 +32,7 @@ export default function Home() {
   const [keywords, setKeywords] = useState<KeywordData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // 1. Fetch real clients from Supabase database
+  // Load real clients from Supabase
   useEffect(() => {
     async function loadClients() {
       const { data, error } = await supabase.from("clients").select("id, name").order("name");
@@ -45,7 +45,7 @@ export default function Home() {
     loadClients();
   }, []);
 
-  // 2. Query metrics dynamically whenever selected client ID changes
+  // Fetch client metrics on selection
   useEffect(() => {
     if (!selectedClientId) return;
 
