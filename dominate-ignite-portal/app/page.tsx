@@ -32,7 +32,7 @@ export default function Home() {
   const [keywords, setKeywords] = useState<KeywordData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Load active clients from Supabase
+  // 1. Fetch active client directory from Supabase
   useEffect(() => {
     async function loadClients() {
       const { data, error } = await supabase.from("clients").select("id, name").order("name");
@@ -47,7 +47,7 @@ export default function Home() {
     loadClients();
   }, []);
 
-  // Fetch performance metrics and keyword rankings on dropdown selection
+  // 2. Fetch client-specific performance metrics and keyword ranks
   useEffect(() => {
     if (!selectedClientId) return;
 
@@ -99,6 +99,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#070a12] text-slate-100 p-6 md:p-10 font-sans">
+      {/* Top Header & Client Switcher Bar */}
       <header className="bg-white text-slate-900 rounded-2xl p-6 mb-8 shadow-2xl flex flex-col xl:flex-row items-center justify-between gap-6 border border-slate-100">
         <div className="flex items-center gap-6">
           <div className="flex flex-col items-center justify-center border-r border-slate-200 pr-6">
@@ -152,7 +153,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Target Outcome Simulator */}
+      {/* Target Outcome Scenario Simulator */}
       <section className="bg-[#0f1422] border border-slate-800 rounded-2xl p-5 mb-8 shadow-xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
           <h2 className="text-sm font-black text-slate-100">
@@ -234,7 +235,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Verified Keywords Table */}
+      {/* Verified Keyword Rankings Table */}
       <section className="bg-[#0f1422] border border-slate-800 rounded-2xl p-6 shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-sm font-black text-amber-500">
