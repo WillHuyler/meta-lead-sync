@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { supabase } from "@/lib/supabaseClient";
-import ScenarioModal from "@/components/ScenarioModal";
+import { supabase } from "../../lib/supabaseClient";
+import ScenarioModal from "../../components/ScenarioModal";
 
 interface Client {
   id: string;
@@ -32,7 +32,7 @@ export default function Home() {
   const [keywords, setKeywords] = useState<KeywordData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Load real clients from Supabase
+  // 1. Fetch real clients directly from Supabase
   useEffect(() => {
     async function loadClients() {
       const { data, error } = await supabase.from("clients").select("id, name").order("name");
@@ -45,7 +45,7 @@ export default function Home() {
     loadClients();
   }, []);
 
-  // Fetch client metrics on selection
+  // 2. Load metrics and rankings dynamically per selected client
   useEffect(() => {
     if (!selectedClientId) return;
 
@@ -150,7 +150,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Dynamic Scenario Simulator */}
+      {/* Dynamic Target Simulator */}
       <section className="bg-[#0f1422] border border-slate-800 rounded-2xl p-5 mb-8 shadow-xl">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
           <h2 className="text-sm font-black text-slate-100">
@@ -171,7 +171,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#070a12] p-4 rounded-xl">
           <div>
-            <span className="text-[10px] font-bold text-slate-500 uppercase">Live Monthly Calls</span>
+            <span className="text-[10px] font-bold text-slate-500 uppercase">Live Monthly Baseline Calls</span>
             <div className="text-2xl font-black text-slate-200 mt-1">{loading ? "..." : `${metrics.calls} Calls/mo`}</div>
           </div>
           <div>
@@ -187,7 +187,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Dynamic Metric Cards */}
+      {/* Dynamic Core Metric Cards */}
       <section className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-[#0f1422] border border-slate-800 p-5 rounded-2xl">
           <span className="text-[11px] font-bold text-slate-400 uppercase">INTERACTIONS</span>
@@ -207,7 +207,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Dynamic Keyword Ranks */}
+      {/* Dynamic SerpAPI Keyword Rankings */}
       <section className="bg-[#0f1422] border border-slate-800 rounded-2xl p-6">
         <h3 className="text-sm font-black text-amber-500 mb-4">
           Live Keywords — <span className="text-amber-400">{selectedClientName}</span>
